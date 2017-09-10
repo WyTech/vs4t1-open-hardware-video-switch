@@ -1,0 +1,14 @@
+To compile, create a project in AVR Studio without an initial file.
+Add the existing source file to the project.
+
+The videoswitch.hex and videoswitch.eep are files created by AVRStudio from your code. 
+EEP is optional and used if you require use of the EEPROM.
+
+AVR Studio project options must be configured as follows:
+
+In the Project->Configuration general options:
+  select ATTiny2313, 8000000 hz, -O0 and check the Create Hex File box.
+In the Project->Configuration custom options:
+  -Wall, -gdwarf-2, -DF_CPU=8000000UL, -O0, -fsigned-char
+
+Build

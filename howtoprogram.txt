@@ -1,0 +1,48 @@
+To program the VS4T1 you need to make a cable to interface the RJ45 jack to your ISP.
+See the ispcable.png file in the hardware folder.
+
+References:
+http://www.atmel.com/avrstudio
+http://savannah.nongnu.org/projects/avrdude/
+http://winavr.sourceforge.net
+http://www.engbedded.com/fusecalc/
+
+How to load firmware into the VS4T1
+------------------------------------
+The VS4T1 uses a custom ISP solution integrated into the RJ45 multi-use port. 
+You can adapt this port to your ISP using an IDC 10 pin male connector and a RJ45 connector.
+Pinouts for the ISP connection via the RJ45 are:
+2 - Reset
+3 - Ground
+6 - SCK
+7 - MOSI
+8 - MISO
+
+For USB ISP programmers:
+To adapt an ISP programmer to the VS4T1 RJ45 connection, you need to create an adaptor. 
+See the ispcable.png diagram file in the hardware folder.
+
+The VS4T1 is then programmed via AVR Studio or via avrdude using the following command:
+c:\winavr\bin\avrdude -pt2313 -c avrispv2 -e -U flash:w:videoswitch.hex -U eeprom:w:videoswitch.eep 
+                      -U efuse:w:0xff:m -U hfuse:w:0xDB:m -U lfuse:w:0xe4:m
+
+For a parallel port DAPA cable:
+To adapt the DAPA cable to the VS4T1 RJ45 connection, you need to create an adaptor. 
+Note that DAPA cables are problematic under Win64. Use of USB ISP is recommended.
+See the pgmcable.png diagram file in the hardware folder.
+
+The DAPA cable plugs into a IBM PC Parallel port and the device is programmed via avrdude using the following command:
+c:\winavr\bin\avrdude -pt2313 -c dapa -e -U flash:w:videoswitch.hex -U eeprom:w:videoswitch.eep 
+                      -U efuse:w:0xff:m -U hfuse:w:0xDB:m -U lfuse:w:0xe4:m
+
+You will also need to have a dapa entry in your avrdude config file. 
+Current versions should already have this in place. 
+
+
+The fuse values efuse:w:0xff:m -U hfuse:w:0xDB:m -U lfuse:w:0xe4:m set the following:
+- Brown-out detection level at 2.7V BODLEVEL=101
+- Int RC Osc 8Mhz 65ms  CKSEL=0100
+- Serial program downloading Enabled SPIEN=0
+
+These settings provide best operation for the device and the serial port communications. 
+Note that if you adjust the clock speed, you will need to adjust the baud rate examples to proper settings for your new clock speed and data rate.
