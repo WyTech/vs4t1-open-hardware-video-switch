@@ -1,6 +1,6 @@
 // VS4T1 Firmware Released to Public Domain
 // FCC EMI Testing program
-// (C) 2013 Alan Capesius 
+// (C) 2013 Tech World Inc
 // The code released under Open Source Expat MIT License
 // See license-mit-expat.txt for details
 
